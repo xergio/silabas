@@ -1,0 +1,20 @@
+La clave está aquí: https://github.com/xergio/silabas/blob/master/home/silabea.py
+
+Software creado gracias a:
+
+nginx http://www.nginx.org
+python http://www.python.org
+django http://www.django-project.com
+redis http://redis.io
+bootstrap http://twitter.github.com/bootstrap
+
+Páginas de regerencia para crear el algoritmo:
+
+http://www.fismat.umich.mx/~karina/tesisLicenciatura/capitulo2.html
+http://es.wikipedia.org/wiki/S%C3%ADlaba
+http://liceu.uab.es/~joaquim/phonetics/fon_esp/silaba_espanol.html
+http://es.wikipedia.org/wiki/Hiato_(fonolog%C3%ADa)
+http://www.galeon.com/la-poesia/ortograf.pdf
+http://es.wikipedia.org/wiki/Di%C3%A9resis
+http://es.wikipedia.org/wiki/Diptongo
+http://es.wikipedia.org/wiki/Triptongo
