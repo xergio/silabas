@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Separador de sílabas{% if title.palabra %} - Separar en sílabas la palabra {{ title.palabra }}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="hero-unit">
+	<h1><a href="/">Separador de sílabas</a></h1>
+	<p>Introduce una o varias palabras en la caja de texto para separar sus sílabas.</p>
+
+	<form class="palabras" method="GET">
+		<fieldset>
+			<div class="control-group">
+				<div class="controls">
+					<textarea class="input-xlarge" id="textarea" name="texto">{{ sform.texto.value }}</textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<label class="checkbox"> <input type="checkbox"
+						id="optionsCheckbox" name="union" value="1"{% if sform.union.value %} checked=""{% endif %}> Analizar todas las palabras juntas. 
+						Si no lo activas tomará cada palabra por separado sin tener en cuenta las reglas de unión.
+					</label>
+				</div>
+			</div>
+			<div class="">
+				<button type="submit" class="btn btn-success btn-large"><i class="icon icon-white icon-resize-full"></i> separar!</button>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+{% if lista_silabas %}
+<h2>Resultado de las sílabas</h2>
+<div class="resultados well alert alert-info">
+	{% for item in lista_silabas %}
+	<div class="resultado row">
+    	{% if not sform.union.value %}<strong class="temporal need design">Las sílabas de la palabra {{ item.palabra|escape }} son {{ item.silabas|join:" - "}}</strong>
+    	<div class="palabra span4 toright"><strong>{{ item.palabra|escape }}</strong> &rarr;</div>{% endif %}
+    	<div class="silabas">{{ item.silabas|join:" - "}}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Example row of columns -->
+<div class="row">
+	<div class="span4">
+		<h2>Algunas palabras</h2>
+		<p>Estas son algunas palabras al azar que se han utilizado para separarlas en sílabas.</p>
+		<ul>
+			{% for random in randoms %}
+			<li><a href="/?texto={{ random|urlencode }}">{{ random|escape }}</a></li>
+    		{% endfor %}
+		</ul>
+	</div>
+	<!-- <div class="span4">
+		<h2>Las más usadas</h2>
+		<p>Lista de las palabras que más se han usado para separar las sílabas.</p>
+		<ul>
+			{% for mu in mostused %}
+			<li><a href="/?texto={{ mu|urlencode }}">{{ mu|escape }}</a></li>
+    		{% endfor %}
+		</ul>
+	</div> -->
+	<div class="span4">
+		<h2>Información</h2>
+		<p>Puedes usar este formulario para enviarme alguna duda, fallo en las sílabas o sugerencia para la web.</p>
+		
+		{% if form.sender.errors %}<div class="alert alert-error">
+        	<strong>uy!</strong> Si no me dejas un email no podré responderte.
+      	</div>{% endif %}
+      	
+		{% if cform.sender.value and not cform.sender.errors %}<div class="alert alert-success">
+        	<strong>enviado!</strong> Procuraré responder en cuanto antes :)
+      	</div>{% endif %}
+		
+		<form class="well contact" method="POST">{% csrf_token %}
+			<fieldset>
+				<div class="control-group{% if form.sender.errors %} error{% endif %}">
+					<label class="control-label" for="input03">Tu email o forma de contacto</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="input03" name="sender" value="{{ cform.sender.value }}">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="textarea02">Un texto</label>
+					<div class="controls">
+						<textarea id="textarea02" name="message" class="imput-large" rows="6">{{ cform.message.value }}</textarea>
+					</div>
+				</div>
+				<div class="">
+					<button type="submit" class="btn btn-info">enviar</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+
+{% endblock %}
