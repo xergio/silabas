@@ -76,7 +76,7 @@ def consonante(letra):
 
 def ataque_complejo(c):
 	if len(c) < 2: return False
-	return True if (c[0] in [u'b', u'c', u'f', u'g', u'p', u't'] and c[1] in [u'l', u'r'] and c != u"dl") or c in [u'dr', u'kr', u'll', u'rr'] else False
+	return True if (c[0] in [u'b', u'c', u'f', u'g', u'p', u't'] and c[1] in [u'l', u'r'] and c != u"dl") or c in [u'dr', u'kr', u'll', u'rr', u'ch'] else False
 
 
 def guegui(c):
