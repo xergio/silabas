@@ -11,7 +11,6 @@
 	http://es.wikipedia.org/wiki/Diptongo
 	http://es.wikipedia.org/wiki/Triptongo
 	http://www.rae.es/consultas/palabras-como-guion-truhan-fie-liais-etc-se-escriben-sin-tilde
-	
 """
 
 
@@ -114,7 +113,7 @@ def diptongo_con_h(trozo):
 
 def triptongo(trozo):
 	if len(trozo) < 3: return False
-	return True if trozo[0:3] in [u'iai', u'iei', u'uai', u'uei', u'uau', u'iau', u'iái', u'iéi', u'uái', u'uéi', u'uáu', u'iáu', u'uay', u'uey'] else False
+	return True if trozo[0:3] in [u'iai', u'iei', u'uai', u'uei', u'uau', u'iau', u'iái', u'iéi', u'uái', u'uéi', u'uáu', u'iáu', u'uay', u'uey'] and len(trozo[3:]) < 2 else False
 
 
 def coda(trozo):
@@ -143,7 +142,7 @@ def minusculas(texto):
 
 if __name__ == '__main__':
 	palabras = ""
-	palabras += u"guiais"
+	palabras += u"Uruguay"
 	#palabras += u"onomatopeya"
 	#palabras += u"hipopotomonstrosesquipedaliofobia"
 	#palabras += u"aorta héroe almohada línea mediterráneo cohete alcohol "
