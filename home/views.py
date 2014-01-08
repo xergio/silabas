@@ -56,7 +56,7 @@ def index(request):
     else:
         sform = SilabasForm(initial={'texto': ''})
     
-    
+        
     if request.method == 'POST':
         cform = ContactForm(request.POST)
         if cform.is_valid():
@@ -64,19 +64,20 @@ def index(request):
     else:
         cform = ContactForm(initial={'message': '', 'sender': ''})
     
-    
+        
     response['sform'] = sform
     response['cform'] = cform
     
     response['randoms'] = set()
-    while len(response['randoms']) < 15:
+    silabas_all_len = r.scard("silabas:all")
+    while len(response['randoms']) < 15 and silabas_all_len > len(response['randoms']):
         response['randoms'].add( r.srandmember("silabas:all") )
-        
+    
     response['mostused'] = r.zrevrange("silabas:mostused", 0, 14)
     
     if 'lista_silabas' in response and len(response['lista_silabas']) == 1:
         response['title'] = response['lista_silabas'][0]
-        
+    
     response.update(csrf(request))
-        
+    
     return render_to_response('home/index.html', response)

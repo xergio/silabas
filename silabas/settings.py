@@ -71,7 +71,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/home/salvarez/www/silabas/public/static',
+    '/home/salvarez/www/silabas.xrg.es/public/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -108,7 +108,7 @@ ROOT_URLCONF = 'silabas.urls'
 WSGI_APPLICATION = 'silabas.wsgi.application'
 
 TEMPLATE_DIRS = (
-    '/home/salvarez/www/silabas/templates'
+    '/home/salvarez/www/silabas.xrg.es/templates'
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
