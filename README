@@ -1,6 +1,6 @@
-La clave está aquí: https://github.com/xergio/silabas/blob/master/home/silabea.py
+La clave de todo esto está aquí: https://github.com/xergio/silabas/blob/master/home/silabea.py
 
-Software creado gracias a:
+- Software creado gracias a:
 
 nginx http://www.nginx.org
 python http://www.python.org
@@ -8,7 +8,7 @@ django http://www.django-project.com
 redis http://redis.io
 bootstrap http://twitter.github.com/bootstrap
 
-Páginas de referencia para crear el algoritmo:
+- Páginas de referencia para crear el algoritmo:
 
 http://www.fismat.umich.mx/~karina/tesisLicenciatura/capitulo2.html
 http://es.wikipedia.org/wiki/S%C3%ADlaba
@@ -18,3 +18,31 @@ http://www.galeon.com/la-poesia/ortograf.pdf
 http://es.wikipedia.org/wiki/Di%C3%A9resis
 http://es.wikipedia.org/wiki/Diptongo
 http://es.wikipedia.org/wiki/Triptongo
+
+- Configuración de nginx:
+
+server {
+        listen          80;
+        server_name     silabas.xrg.es;
+        index           index.html;
+
+        location / {
+                include         uwsgi_params;
+                uwsgi_pass      unix:/tmp/uwsgi-silabas.sock;
+        }
+
+        location ~ ^/(media/|static/|img/|js/|css/|fonts/|robots.txt|humans.txt|favicon.ico) {
+                root /home/salvarez/www/silabas.xrg.es/public;
+                access_log off;
+                expires 1h;
+        }
+}
+
+- Configuración de uWSGI (/etc/init/uwsgi.conf):
+
+description "uwsgi silabas"
+start on runlevel [2345]
+stop on runlevel [06]
+
+exec uwsgi --chdir=/home/salvarez/www/silabas.xrg.es --module=silabas.wsgi --env DJANGO_SETTINGS_MODULE=silabas.settings --master --pidfile=/tmp/uwsgi-silabas.pid --socket=/tmp/uwsgi-silabas.sock --processes=2 --uid=33 --gid=33 --harakiri=10 --max-requests=5000 --vacuum --daemonize=/var/log/uwsgi-silabas.log
+
