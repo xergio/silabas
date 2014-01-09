@@ -45,5 +45,5 @@ description "uwsgi silabas"
 start on runlevel [2345]
 stop on runlevel [06]
 
-exec uwsgi --chdir=/home/salvarez/www/silabas.xrg.es --module=silabas.wsgi --env DJANGO_SETTINGS_MODULE=silabas.settings --master --pidfile=/tmp/uwsgi-silabas.pid --socket=/tmp/uwsgi-silabas.sock --processes=2 --uid=33 --gid=33 --harakiri=10 --max-requests=5000 --vacuum --daemonize=/var/log/uwsgi-silabas.log
+exec uwsgi --chdir=/home/salvarez/www/silabas.xrg.es --module=silabas.wsgi --env DJANGO_SETTINGS_MODULE=silabas.settings --master --pidfile=/tmp/uwsgi-silabas.pid --socket=/tmp/uwsgi-silabas.sock --processes=2 --uid=1000 --gid=1000 --harakiri=10 --max-requests=5000 --vacuum --daemonize=/var/log/uwsgi-silabas.log
 
