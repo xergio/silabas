@@ -1,5 +1,6 @@
 La clave de todo esto está aquí: https://github.com/xergio/silabas/blob/master/home/silabea.py
 
+
 - Software creado gracias a:
 
 nginx http://www.nginx.org
@@ -7,6 +8,7 @@ python http://www.python.org
 django http://www.django-project.com
 redis http://redis.io
 bootstrap http://twitter.github.com/bootstrap
+
 
 - Páginas de referencia para crear el algoritmo:
 
@@ -19,6 +21,7 @@ http://es.wikipedia.org/wiki/Di%C3%A9resis
 http://es.wikipedia.org/wiki/Diptongo
 http://es.wikipedia.org/wiki/Triptongo
 http://www.rae.es/consultas/palabras-como-guion-truhan-fie-liais-etc-se-escriben-sin-tilde (gracias a Marta Lamela)
+
 
 - Configuración de nginx:
 
@@ -39,11 +42,27 @@ server {
         }
 }
 
+
 - Configuración de uWSGI (/etc/init/uwsgi.conf):
 
 description "uwsgi silabas"
 start on runlevel [2345]
 stop on runlevel [06]
 
-exec uwsgi --chdir=/home/salvarez/www/silabas.xrg.es --module=silabas.wsgi --env DJANGO_SETTINGS_MODULE=silabas.settings --master --pidfile=/tmp/uwsgi-silabas.pid --socket=/tmp/uwsgi-silabas.sock --processes=2 --uid=1000 --gid=1000 --harakiri=10 --max-requests=5000 --vacuum --daemonize=/var/log/uwsgi-silabas.log
+respawn
+exec uwsgi --master --pidfile=/var/run/uwsgi.pid --emperor /home/salvarez/conf/uwsgi --logto /var/log/uwsgi.log
 
+
+- Configuración de la app (silabas.ini) [http://uwsgi-docs.readthedocs.org/en/latest/Emperor.html]
+
+[uwsgi]
+chdir = /home/salvarez/www/silabas.xrg.es 
+module = silabas.wsgi 
+env = DJANGO_SETTINGS_MODULE=silabas.settings 
+socket = /tmp/uwsgi-silabas.sock  
+uid = 1000 
+gid = 1000 
+harakiri = 10 
+max-requests = 500 
+logto = /var/log/uwsgi-silabas.log
+enable-threads = true
